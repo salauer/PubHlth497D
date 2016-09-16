@@ -1,0 +1,103 @@
+---
+title: "RMarkdown Example"
+author: "Stephen Lauer"
+date: "September 16, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. To create an R Markdown sheet of your own, click `File->New File->R Markdown`. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. To see the cheatsheets for R Markdown click `Help->Cheatsheets->R Markdown Cheat Sheet` or `R Markdown Reference Guide`.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk by clicking the **Insert** button and creating a chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Installing and loading libraries
+
+There are many built-in functions in R, such as `mean()`, `max()`, and `min()`:
+
+```{r built-in}
+small_numbers <- c(0,1,2,3,4,5)
+mean(small_numbers)
+max(small_numbers)
+min(small_numbers)
+```
+
+But sometimes you want to run a function that does not start in R. Some of these functions are in "Packages" that you do not have in your "Library." For instance, we will use `ggplot2` to visualize our data later in this course. The `qplot()` function makes a quick plot based on a variable for x and y. To try and run this, set `eval=TRUE` in the chunk below:
+
+```{r qplot without library, eval=FALSE}
+squared_smalls <- small_numbers^2
+qplot(x=small_numbers, y=squared_smalls)
+```
+
+When `eval=TRUE`, R Markdown throws an error. R does not know what `qplot()` is! In order to use `qplot()`, you must first install and load the library `ggplot2`. To run this, set `eval=TRUE` below (don't forget to set `eval=FALSE` for the last chunk):
+
+```{r qplot with library, eval=FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+qplot(x=small_numbers, y=squared_smalls)
+```
+
+You only need to install a package once on your machine, from then on you can just use `library()` to load it in the future.
+
+Here are two more ways to install packages in RStudio:
+
+1. Click `Tools->Install Packages...`
+2. Click on "Packages" in the lower-right section of the RStudio (where it says "Files", "Plots", "Packages", "Help", "Viewer"). Then click "Install."
+
+If you don't know which package you need for your particular problem, there is a huge online community at your disposal.
+You can simply Google your question, starting with "r": i.e. "r how to draw a random number" (don't use the quotes).
+Often **stackoverflow.com** has the solution you are looking for; this is a community where users post questions and other users provide answers.
+Sometimes the answers require you to install a new package, now you are able to do so!
+
+Packages are very useful in R and one day you might even write one yourself!
+
+## Using Help
+
+Another useful function in R is the `?` function.
+When you aren't sure what arguments are needed for a function, use the `?` to find out!
+
+For instance, missing data can be a real pain.
+Missing data is demarked as `NA`, and can ruin your basic functions.
+
+```{r missing data problems}
+vector_with_na <- c(1,2,NA,4,5)
+mean(vector_with_na)
+```
+
+The mean of a vector with an `NA` is always `NA`, which doesn't help you very much.
+Perhaps you want to take the mean of the vector without the missing component.
+As you may have learned, you can re-write your vector within the function as:
+
+```{r re-written vector}
+mean(vector_with_na[-3])
+```
+
+This takes out the one missing data and takes the average of the rest.
+But what if you don't know where all the missing data are or there are many of these missing data, which makes writing this out very awkward?
+You can use `?mean` to view the Help file and find that the `na.rm` option will take out all of the `NA` values before taking the mean!
+
+```{r re-written function}
+mean(vector_with_na, na.rm=TRUE)
+```
+
+The Help function is available for all base R functions (the built-in ones) and for many of the packages you download from CRAN (a large package database).
+
+Between Help and stackoverflow.com, you can find the answers to many of your programming questions!
